@@ -1,0 +1,103 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template/template.xhtml">
+<ui:define name="content">
+ <h1>Historial de Ordenes</h1>
+ 
+
+  
+ 
+<h:form id="SearchForm">
+ <f:passThroughAttribute name="autocomplete" value="off"/>
+  <p:fieldset legend="Buscar Orden " toggleable="true" toggleSpeed="500" style="margin-bottom:20px" collapsed="true" >
+  <p:ajax event="toggle" />
+  <p:panel id="SearchPanel" >
+      <div class="ui-g ui-fluid">
+       <div class="ui-g-12 ui-lg-3" style="margin-bottom: 5px;">
+        <p:outputLabel  for="nombre_paciente" value="Nombre Paciente:" />
+         <p:inputText id="nombre_paciente"  style="width: 100%; margin-top: 5px;"  value="#{historialOrdenesForm.searchNomPaci}" maxlength="50" />
+         <p:message for="nombre_paciente"/>
+      </div>
+      <div class="ui-g-12 ui-lg-3" style="margin-bottom: 5px;">
+        <p:outputLabel  for="numero_orden" value="Numero Orden:" />
+         <p:inputText id="numero_orden"  style="width: 100%; margin-top: 5px;"  value="#{historialOrdenesForm.searchNumOrde}" maxlength="50" />
+         <p:message for="numero_orden"/>
+      </div>
+      <div class="ui-g-12 ui-lg-3" style="margin-bottom: 5px;">
+        <p:outputLabel  for="nombre_estudio" value="Nombre Estudio:" />
+         <p:inputText id="nombre_estudio"  style="width: 100%; margin-top: 5px;"  value="#{historialOrdenesForm.searchNomEstu}" maxlength="50" />
+         <p:message for="nombre_estudio"/>
+      </div>
+        <div class="ui-g-12 ui-lg-3" style="margin-bottom: 5px;">
+        <p:outputLabel  for="nombre_doctor_referente" value="Nombre Doctor Referente:" />
+         <p:inputText id="nombre_doctor_referente"  style="width: 100%; margin-top: 5px;"  value="#{historialOrdenesForm.searchNomDocRef}" maxlength="50" />
+         <p:message for="nombre_doctor_referente"/>
+      </div>
+      </div>
+      
+      <div class="ui-g">
+       <div class="ui-g-12 ui-lg-12" style="text-align: right;">
+        <p:commandButton value="Cancelar">
+         <p:ajax update="SearchPanel" resetValues="true" />
+        </p:commandButton>
+        <p:commandButton value="Consultar" update="HistorialDeOrdenesFormReadOnly"   actionListener="#{historialOrdenesForm.search}"  style="margin-left: 10px;"/>
+       </div>
+      </div>
+      
+  </p:panel>
+  </p:fieldset>
+</h:form>
+  <h:form id="HistorialDeOrdenesFormReadOnly">
+    <div class="ui-g">
+    <div class="ui-g-12 ui-lg-12">
+    <div class="card no-margin">
+           <div class="ui-g">
+           <div class="ui-g-12 ui-lg-12">
+              <p:dataTable var="historialOrden" value="#{historialOrdenesForm.listOrdenesEstudiosHistorial}" emptyMessage="Sin resultados" tableStyle="width:auto"  paginator="true" rows="50" paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" >
+				   <p:column headerText="Numero orden" style="text-overflow: ellipsis; white-space: nowrap;">
+			        <h:outputText value="#{historialOrden.numeroOrden}" />
+			       </p:column> 
+			       <p:column headerText="Nombre Paciente">
+			         <h:outputText value="#{historialOrden.nombrePaciente}" />
+<!-- 			       <p:spacer width="5" height="5" /> -->
+<!-- 			           <h:outputText value="#{historialOrden.apellidoPaternoPaciente}" /> -->
+<!-- 			          <p:spacer width="5" height="5" /> -->
+<!-- 			            <h:outputText value="#{historialOrden.apellidoMaternoPaciente}" /> -->
+<!-- 			       </p:column> -->
+<!-- 			        <p:column headerText="Fecha" style="text-overflow: ellipsis; white-space: nowrap;"> -->
+<!-- 			         <h:outputText value="#{pagoDeEstudio.castFechaCreacion}" > -->
+<!-- 			          <f:convertDateTime type="date" pattern= "yyyy-MM-dd" /> -->
+<!-- 			         </h:outputText> -->
+			       </p:column> 
+			        <p:column headerText="Doctor Referente">
+			         <h:outputText value="#{historialOrden.nombreDoctorReferente}" /> 
+			           <p:spacer width="5" height="5" />
+			          <h:outputText value="#{historialOrden.apellidoPaternoDoctorReferente}" /> 
+			            <p:spacer width="5" height="5" />
+			           <h:outputText value="#{historialOrden.apellidoMaternoDoctorReferente}" /> 
+			       </p:column>
+			       <p:column headerText="Nombre Estudio">
+			         <h:outputText value="#{historialOrden.nombreEstudio}" /> 
+			       </p:column>
+			        <p:column headerText="Fecha Creacion">
+			           <h:outputText value="#{historialOrden.fechaCreacion}" />
+			       </p:column>
+			      <p:column headerText="Tipo De Orden">
+			           <h:outputText value="#{historialOrden.decodeTipoOrden}" />
+			       </p:column>
+<!-- 			       <p:column headerText="Observaciones Pago"> -->
+<!-- 			           <h:outputText value="#{pagoDeEstudio.observPago}" /> -->
+<!-- 			       </p:column> -->
+			  </p:dataTable> 
+           </div>
+           </div>
+     </div>
+     </div>
+   </div>   
+  </h:form>
+ 
+</ui:define>
+</ui:composition>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+      <title>Formato Orden Simple</title>
+      <h:outputScript library="primefaces" name="jquery/jquery.js"/>
+      <h:outputScript library="primefaces" name="jquery/jquery-plugins.js"/>
+      <h:outputScript library="js" name="dtecimax/admin/as/Formato1RO.js"/>
+      <h:outputStylesheet library="css" name="dtecimax/admin/as/Formato1.css"  />
+      </h:head>
+   <h:body>
+    <input type="text" value="#{sessionScope['svNumeroOrden']}" id="numeroOrdenId"/>
+    <!--<input type="text" value="#{sessionScope['svUserName']}" id="UserNameId"/>-->
+   </h:body>  
+ </html>

@@ -1,0 +1,97 @@
+@charset "UTF-8";
+
+body{
+	 width: 1024px; 
+     margin-left:10px;  
+}
+
+#contenedor { 
+	          width: 1024px; 
+            }
+
+#row1 {
+	     width: 1024px; 
+	     height: 100px; 
+	     }            
+
+#row1Col1{
+	     width: 100px; 
+	     height:100px; 
+	     }
+
+#row1Col2{
+	      position: relative; 
+	      left:100px;
+	      top:-102px; 
+	      width:200px; 
+	      height:100px; 
+	      }         
+#row1Col3{ 
+	      position: relative; 
+	      left:700px;
+	      width:300px; 
+	      top:-204px; 
+	      height:20px; 
+	      padding-top:60px;
+	      }
+	      
+#row2 {  width: 1024px; 
+	     height: 25px; 
+	     }
+	     
+#row3 {  width: 1024px; 
+	     height: 25px; 
+	     }
+	     
+#row4 {  width: 1024px; 
+	     height: 25px; 
+	     }        
+#row5{  width: 1024px; 
+	     height: 25px; 
+	     } 	     
+#row6{  width: 1024px; 
+	     height: 125px; 
+	     }	   
+#row6Col1{
+	     width: 681px; 
+	     height:123px; 
+	     float:left; 
+	     }	       
+#row6Col2{
+	     width: 335px; 
+	     height:123px; 
+	     float:left; 
+	     }	  	              	  
+#r6c2r1{
+	 width: 333px; 
+	 height:25px; 
+	 background-color:black;
+	 color:white;
+	 text-align: center;
+}	         
+
+#r6c2r2{
+	 width: 333px;
+	 height:25px; 
+	 }
+
+textarea {
+    resize: none;
+}
+
+
+
+@media print{
+       @page {   margin: 0; }
+     #r6c2r1{
+	 width: 333px; 
+	 height:25px; 
+	 background-color:black;
+	 color:white;
+	 text-align: center;
+	  -webkit-print-color-adjust: exact; 
+	 }
+	 input[type="date"]{
+	  border:none;
+	 }	   
+}	  

@@ -1,0 +1,50 @@
+@charset "UTF-8";
+@import url('/DtecImaxWeb/resources/css/dtecimax/admin/as/Formato2.css');
+
+ input[type="date"],input[type="text"]{
+	  border:none;
+	 }	   
+	 
+input[type="checkbox"] {
+    display: none;
+}
+
+input[type="checkbox"]:disabled + label:before {
+    color: black;
+    background: white;
+    border: 2px solid black;
+}
+
+input[type="checkbox"]:checked + label:before {
+	padding-left: 4px;	
+	padding-right: 4px;	
+    content: '✓';
+}
+
+input[type="checkbox"]:not(:checked) + label:before {
+   padding-left : 20px;	
+   content: '';
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]:disabled + label:before {
+    color: black;
+    background: white;
+    border: 2px solid black;
+}
+
+input[type="radio"]:checked + label:before {
+	padding-left: 4px;	
+	padding-right: 4px;	
+    content: '✓';
+}
+
+input[type="radio"]:not(:checked) + label:before {
+   padding-left : 20px;	
+   content: '';
+}
+
+

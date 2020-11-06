@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template/template.xhtml">
+<ui:define name="content">
+<h1>Estadísticas Ganancias</h1>
+
+  <h:form id="SearchForm">
+  <f:passThroughAttribute name="autocomplete" value="off"/>
+  <p:panel id="SearchPanel" >
+  <div class="ui-g">  
+  <div class="ui-g-9 ui-g-nopad">
+     <div class="ui-g-6">
+      <p:outputLabel for="fechaDesde" value="Fecha" />
+        <p:calendar id="fechaDesde"  pattern="dd/MM/yyyy" mask="true" required="true" locale="es" navigator="true" value="#{estadisticasGananciasForm.searchFechaDesde}"/>
+        <p:message for="fechaDesde"/>
+     </div>
+     <div class="ui-g-6">
+        <p:outputLabel for="fechaHasta" value="Fecha Hasta" rendered="false"/>
+         <p:calendar id="fechaHasta" pattern="dd/MM/yyyy" mask="true" required="true" locale="es" navigator="true" value="#{estadisticasGananciasForm.searchFechaHasta}" />
+         <p:message for="fechaHasta"/>
+     </div>
+  </div>
+  </div><!-- END ui-g  -->
+   <div class="ui-g">
+      <div class="ui-g-12 ui-md-12 ui-lg-12" style="text-align: left;">
+       <p:commandButton value="Consultar" update="ReadOnlyForm" actionListener="#{estadisticasGananciasForm.filtraPorFechas()}" oncomplete="$('.ui-message-error').delay(1800).fadeOut(500);"/>
+      </div>
+   </div><!-- END ui-g  -->
+   </p:panel>
+  </h:form>
+
+ <h:form id="ReadOnlyForm">
+ <p:chart type="bar" model="#{estadisticasGananciasForm.barModelPagosConTarjConFact}" style="height:300px"/>
+ <p:chart type="bar" model="#{estadisticasGananciasForm.barModelPagosConTarjSinFact}" style="height:300px"/>
+ <p:chart type="bar" model="#{estadisticasGananciasForm.barModelPagosConEfectivo}" style="height:300px"/>
+ <p:chart type="bar" model="#{estadisticasGananciasForm.barModelPagosConCLIP}" style="height:300px"/>
+ </h:form>
+
+</ui:define>
+</ui:composition>

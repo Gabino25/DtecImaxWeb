@@ -1,0 +1,75 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template/template.xhtml">
+<ui:define name="content">
+ <h1>Historial de Pagos</h1>
+ 
+  <h:form id="SearchForm">
+  <f:passThroughAttribute name="autocomplete" value="off"/>
+  <p:panel id="SearchPanel" >
+  <div class="ui-g">
+  <div class="ui-g-9 ui-g-nopad">
+     <div class="ui-g-6">
+      <p:outputLabel for="fechaDesde" value="Fecha Desde" />
+        <p:calendar id="fechaDesde"  pattern="dd/MM/yyyy" mask="true" required="true" locale="es" navigator="true" value="#{historialDePagosForm.searchFechaDesde}"/>
+        <p:message for="fechaDesde"/>
+     </div>
+     <div class="ui-g-6">
+        <p:outputLabel for="fechaHasta" value="Fecha Hasta" rendered="false" />
+         <p:calendar id="fechaHasta" pattern="dd/MM/yyyy" mask="true" required="true" locale="es" navigator="true" value="#{historialDePagosForm.searchFechaHasta}" rendered="false"/>
+         <p:message for="fechaHasta"/>
+     </div>
+  </div>
+  </div><!-- END ui-g  -->
+   <div class="ui-g">
+      <div class="ui-g-12 ui-md-12 ui-lg-12" style="text-align: left;">
+       <p:commandButton value="Consultar" update="SearchPanel HistorialDePagosFormReadOnly" actionListener="#{historialDePagosForm.filtraPorFechas()}" oncomplete="$('.ui-message-error').delay(1800).fadeOut(500);"/>
+      </div>
+   </div><!-- END ui-g  -->
+   </p:panel>
+  </h:form>
+  
+ 
+  <h:form id="HistorialDePagosFormReadOnly">
+    <div class="ui-g">
+    <div class="ui-g-12 ui-lg-12">
+    <div class="card no-margin">
+           <div class="ui-g">
+           <div class="ui-g-12 ui-lg-12">
+              <p:dataTable var="pagoDeEstudio" value="#{historialDePagosForm.listPagosOrdenesEstudiosV1}" emptyMessage="Sin resultados" tableStyle="width:auto"  paginator="true" rows="10" paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" >
+				   <p:column headerText="Nombre Paciente" style="text-overflow: ellipsis; white-space: nowrap;">
+			        <h:outputText value="#{pagoDeEstudio.nombreCompletoPaciente}" />
+			       </p:column> 
+			       <p:column headerText="Estudio Realizado">
+			         <h:outputText value="#{pagoDeEstudio.nombreEstudio}" />
+			       </p:column>
+			        <p:column headerText="Fecha" style="text-overflow: ellipsis; white-space: nowrap;">
+			         <h:outputText value="#{pagoDeEstudio.castFechaCreacion}" >
+			          <f:convertDateTime type="date" pattern= "yyyy-MM-dd" />
+			         </h:outputText>
+			       </p:column>
+			       <p:column headerText="Tipo de Pago">
+			         <h:outputText value="#{pagoDeEstudio.decodeTipoPago}" /> 
+			       </p:column>
+			        <p:column headerText="Costo Total">
+			           <h:outputText value="#{pagoDeEstudio.total}" />
+			       </p:column>
+			      <p:column headerText="Observaciones Descuento">
+			           <h:outputText value="#{pagoDeEstudio.observDesc}" />
+			       </p:column>
+			       <p:column headerText="Observaciones Pago">
+			           <h:outputText value="#{pagoDeEstudio.observPago}" />
+			       </p:column>
+			  </p:dataTable> 
+           </div>
+           </div>
+     </div>
+     </div>
+   </div>   
+  </h:form>
+ 
+</ui:define>
+</ui:composition>

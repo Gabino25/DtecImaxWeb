@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+   <h:head>
+     <title>Formato1</title>
+     <h:outputScript library="primefaces" name="jquery/jquery.js"/>
+     <h:outputScript library="primefaces" name="jquery/jquery-plugins.js"/>
+     <h:outputScript library="js" name="dtecimax/admin/as/Formato1.js"/>
+     <h:outputStylesheet library="css" name="dtecimax/admin/as/Formato1.css"  />
+    </h:head>
+   <h:body>
+     <h:form id="formID">
+     <div id="contenedor">
+     <div id="elementoBlocke1">
+     <div id="CentroDeImagenologia">
+     <h:graphicImage style="border:none;" width="250px" height="200px" id="centroDeImagenologia" library="images" name="CentroDeImagenologia.PNG" />
+     </div>
+     <div id="Titulo">
+     <h1 id="icmth1">IMAGENOLOGIA CENTRO MEDICO DE TAMPICO</h1>
+     <h2 id="icmth2">DR DAVID FERNANDO PEREZ MONTEMAYOR</h2>
+     <h6 id="icmth6">MEDICO RADIOLOGO CERTIFICADO POR EL CONSEJO MEXICANO DE RADIOLOGIA E IMAGEN</h6>
+     <h6 id="icmth6">CON CALIFICACION AGREGADADA EN IMAGEN DE LA MAMA</h6>
+     </div>
+     </div>
+     <div id="elementoBlocke2">
+     
+     Técnico:<h:inputText size="45"/>Refererida por:<h:inputText size="45"/>. Fecha:<h:outputText value="#{formato1Form.currentDate}" >
+                                                           <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+                                                           </h:outputText> 
+                                                           <br/><br/> 
+     Nombre:<h:outputText value="#{formato1Form.nombreCompletoPaciente}" /><br/><br/>
+     Fecha de Nacimiento: <h:outputText value="#{formato1Form.fechaDeNacimiento}" ><f:convertDateTime type="date" pattern="dd/MM/yyyy"/></h:outputText> Edad <h:outputText value="#{formato1Form.anios}" /> años<br/>
+     Primera Vez:  Subsecuente:  Direccion:<br/>
+     Telefono de casa: Telefono Celular<br/>
+     Correo electronico: ¿Existe Historia de cancer en su familia? <br/>
+     Fecha de ultima mestruacion: ¿Toma anticonceptivos hormonales? <br/>
+     Numero de Hijos:   Tipo de Estudio Unilateral Bilateral<br/><br/><br/>
+     <table id="tablaFormato">
+      <tbody>
+        <tr>
+        <td class="width1">
+        PORFAVOR MARQUE CON UNA X
+        </td>
+        <td class="width2">
+        DERECHA
+        </td>
+        <td class="width2">
+        IZQUIERDA
+        </td>
+        <td class="width2">
+        NO
+        </td>
+        </tr>
+        <tr>
+        <td>
+         NODULOS
+        </td>
+        <td class="width2">
+        <h:selectOneMenu >
+         <f:selectItem itemValue="" itemLabel=""/>
+         <f:selectItem itemValue="X" itemLabel="X"/>
+        </h:selectOneMenu>
+        </td>
+        <td class="width2">
+        <h:selectOneMenu >
+         <f:selectItem itemValue="" itemLabel=""/>
+         <f:selectItem itemValue="X" itemLabel="X"/>
+        </h:selectOneMenu>
+        </td>
+        <td class="width2">
+        <h:selectOneMenu >
+         <f:selectItem itemValue="" itemLabel=""/>
+         <f:selectItem itemValue="X" itemLabel="X"/>
+        </h:selectOneMenu>
+        </td>
+        </tr>
+         <tr>
+        <td>
+         MOLESTIA O DOLOR
+        </td>
+        <td class="width2">
+        <h:selectOneMenu >
+         <f:selectItem itemValue="" itemLabel=""/>
+         <f:selectItem itemValue="X" itemLabel="X"/>
+        </h:selectOneMenu>
+        </td>
+        <td class="width2">
+        <h:selectOneMenu >
+         <f:selectItem itemValue="" itemLabel=""/>
+         <f:selectItem itemValue="X" itemLabel="X"/>
+        </h:selectOneMenu>
+        </td>
+        <td class="width2">
+        <h:selectOneMenu >
+         <f:selectItem itemValue="" itemLabel=""/>
+         <f:selectItem itemValue="X" itemLabel="X"/>
+        </h:selectOneMenu>
+        </td>
+        </tr>
+         <tr>
+        <td>
+         FLUJO POR EL PEZON
+        </td>
+        <td class="width2">
+         <h:selectOneMenu >
+         <f:selectItem itemValue="" itemLabel=""/>
+         <f:selectItem itemValue="X" itemLabel="X"/>
+        </h:selectOneMenu>
+        </td>
+        <td class="width2">
+         <h:selectOneMenu >
+         <f:selectItem itemValue="" itemLabel=""/>
+         <f:selectItem itemValue="X" itemLabel="X"/>
+        </h:selectOneMenu>
+        </td>
+        <td class="width2">
+         <h:selectOneMenu >
+         <f:selectItem itemValue="" itemLabel=""/>
+         <f:selectItem itemValue="X" itemLabel="X"/>
+        </h:selectOneMenu>
+        </td>
+        </tr>
+         <tr>
+        <td>
+         CIRUJIA MAMARIA PREVIA
+        </td>
+        <td class="width2">
+         <h:selectOneMenu >
+         <f:selectItem itemValue="" itemLabel=""/>
+         <f:selectItem itemValue="X" itemLabel="X"/>
+        </h:selectOneMenu>
+        </td>
+        <td class="width2">
+         <h:selectOneMenu >
+         <f:selectItem itemValue="" itemLabel=""/>
+         <f:selectItem itemValue="X" itemLabel="X"/>
+        </h:selectOneMenu>
+        </td>
+        <td class="width2">
+         <h:selectOneMenu >
+         <f:selectItem itemValue="" itemLabel=""/>
+         <f:selectItem itemValue="X" itemLabel="X"/>
+        </h:selectOneMenu>
+        </td>
+        </tr>
+        <tr>
+        <td>
+         LUNARES EN LA PIEL
+        </td>
+        <td class="width2">
+         <h:selectOneMenu >
+         <f:selectItem itemValue="" itemLabel=""/>
+         <f:selectItem itemValue="X" itemLabel="X"/>
+        </h:selectOneMenu>
+        </td>
+        <td class="width2">
+         <h:selectOneMenu >
+         <f:selectItem itemValue="" itemLabel=""/>
+         <f:selectItem itemValue="X" itemLabel="X"/>
+        </h:selectOneMenu>
+        </td>
+        <td class="width2">
+         <h:selectOneMenu >
+         <f:selectItem itemValue="" itemLabel=""/>
+         <f:selectItem itemValue="X" itemLabel="X"/>
+        </h:selectOneMenu>
+        </td>
+        </tr>
+      </tbody>
+     </table>
+     <br/>
+     <br/>
+     <div id="crearCirculosDiv"  >
+         <button id="creaPuntoBtn" type="button" onclick="creaPunto();">Crea Punto</button>
+      </div> 
+      <div id="dibujoSenosDiv">
+       <h:graphicImage style="border:none;" width="900px" height="400px" id="dibujoSenos" library="images" name="DibujoSenos.jpg" />
+      </div>
+      <button id="guardaFormatoBtn"  type="button" onclick="getBody();" >Guarda Formato</button>
+      </div> 
+      <div class="xxui-g">
+      <div class="xxui-g-6">
+        IMAX<br/>
+        Acceso Principal:<br/>
+        Calle Doctor Carlos Canseco 211 Nte.<br/>
+        Zona Centro, Tampico, Tamps., Mexico
+      </div>
+       <div class="xxui-g-6">
+        CENTRO MEDICO DE TAMPICO<br/>
+        Acceso Alternativo:<br/>
+        Calle Alternativa 413 Pte.<br/>
+        Zona Centro, Tampico, Tamps., Mexico
+      </div>
+      </div>
+      </div> <!-- END contenedor -->  
+     </h:form> 
+   </h:body>  
+  </html>

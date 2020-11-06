@@ -1,0 +1,207 @@
+@charset "UTF-8";
+title {
+		  display: none;
+		}   
+    body {width:90%}
+       #contenedor{
+        width: 1024px; 
+        margin: 0 auto;
+       }
+       #elementoBlocke1{
+        display:block;
+        height:210px;
+       }
+       #CentroDeImagenologia{
+        float:left;
+       }
+       #icmth1{
+        font-size:30px;
+        margin-top:0px;
+        margin-bottom:0px;
+        text-align:center
+       }
+       #icmth2{
+        margin-top:0px;
+        margin-bottom:0px;
+        text-align:center
+       }
+        #icmth6{
+        margin-top:0px;
+        margin-bottom:0px;
+        text-align:center
+       }
+       #elementoBlocke2{
+         display:inline;
+       }
+       
+       #tablaFormato{
+        border-collapse: collapse;
+        width: 90%; 
+        border:1px solid #333; 
+       }
+      
+        #tablaFormato td{
+        border:1px solid #333; 
+       }
+       
+       .width1{
+       text-align:center;
+       width: 40%; 
+       }
+       .width2{
+       text-align:center;
+       width: 20%; 
+       }
+       
+       .xxui-g{
+        display:flex;
+        flex-wrap:wrap;
+        box-sizing:border-box; 
+       }
+       
+        .xxui-g div{
+       text-align: center;
+       }
+       
+       .xxui-g-6{
+         width: 50%;
+         float: left;
+         box-sizing: border-box;
+         padding: 0.5em;
+         }
+       
+       .xxui-g-12{
+         width: 8.33%;
+         float: left;
+         box-sizing: border-box;
+         padding: 0.5em;
+         }
+         
+         .xxdraggable {
+                       width: 0.1px;
+                       height: 0.1px; 
+                       padding: 0.1px; 
+                       border-radius: 50%;
+                     }
+       
+       body .ui-widget-content{ 
+         background-color: red;
+         border: 10px solid black;
+        }
+        
+        body .xxdraggable{ 
+         background-color: red;
+         border: 10px solid black;
+        }
+       
+       @media print{
+       @page { size: auto;  margin: 0mm; }
+       title {
+		  display: none;
+		}   
+         body {width:90%}
+       #contenedor{
+        width: 1024px; 
+        margin: 0 auto;
+       }
+       #elementoBlocke1{
+        display:block;
+        height:210px;
+       }
+       #CentroDeImagenologia{
+        float:left;
+       }
+       #icmth1{
+        font-size:30px;
+        margin-top:0px;
+        margin-bottom:0px;
+        text-align:center
+       }
+       #icmth2{
+        margin-top:0px;
+        margin-bottom:0px;
+        text-align:center
+       }
+        #icmth6{
+        margin-top:0px;
+        margin-bottom:0px;
+        text-align:center
+       }
+       #elementoBlocke2{
+         display:inline;
+       }
+       
+        #tablaFormato{
+        border-collapse: collapse;
+        width: 90%; 
+        border:1px solid #333; 
+       }
+      
+        #tablaFormato td{
+        border:1px solid #333; 
+       }
+       
+       .width1{
+       text-align:center;
+       width: 40%; 
+       }
+       .width2{
+       width: 20%; 
+       text-align:center;
+       }
+      
+        select {
+                margin: 0; 
+                padding: 0;
+                border: 0; 
+                -webkit-appearance: none;
+			    -moz-appearance: none;
+			    text-indent: 1px;
+			    text-overflow: '';
+          }
+          
+        input {
+                margin: 0; 
+                padding: 0;
+                border: 0; 
+                }
+       
+         .xxui-g div{
+       text-align: center;
+       }
+       
+       .xxui-g-6{
+         width: 50%;
+         float: left;
+         box-sizing: border-box;
+         padding: 0.5em;
+         }
+         
+         .xxui-g-12{
+         width: 8.33%;
+         float: left;
+         box-sizing: border-box;
+         padding: 0.5em;
+         }
+          
+        .xxdraggable {
+                       width: 0.1px;
+                       height: 0.1px; 
+                       padding: 0.1px; 
+                       border-radius: 50%;
+                     }
+       
+       body .ui-widget-content{ 
+         background-color: red;
+         border: 10px solid black;
+        }
+        
+        body .xxdraggable{ 
+         background-color: red;
+         border: 10px solid black;
+        }
+        
+        #creaPuntoBtn{
+         display:none;
+        }
+      } /** END @media print{ **/

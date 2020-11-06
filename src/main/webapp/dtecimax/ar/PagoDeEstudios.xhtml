@@ -1,0 +1,358 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template/template.xhtml">
+<ui:define name="content">
+
+<script type="text/javascript">
+    function handleDescuentoRequest(xhr, status, args) {
+        if(args.validationFailed || !args.descuentoIn) {
+            PF('descuentoDialogWV').jq.effect("shake", {times:5}, 100);
+        }
+        else {
+            PF('descuentoDialogWV').hide();
+            /*$('#RegistrarUbicacionBtn').fadeOut();*/
+        }
+    }
+    function handlePagoRequest(xhr, status, args) {
+        if(args.validationFailed || !args.pagoIn) {
+            PF('pagoDialogWV').jq.effect("shake", {times:5}, 100);
+        }
+        else {
+            PF('pagoDialogWV').hide();
+            /*$('#RegistrarUbicacionBtn').fadeOut();*/
+        }
+    }
+    function handleInfoFacturaRequest(xhr, status, args) {
+        if(args.validationFailed || !args.infoFacturaIn) {
+            PF('facturaInfoDialogWV').jq.effect("shake", {times:5}, 100);
+        }
+        else {
+            PF('facturaInfoDialogWV').hide();
+            /*$('#RegistrarUbicacionBtn').fadeOut();*/
+        }
+    }
+    function handleCreateGastoRequest(xhr, status, args){
+    	  if(args.validationFailed || !args.createPagoIn) {
+              PF('createGastoDialogWV').jq.effect("shake", {times:5}, 100);
+          }
+          else {
+              PF('createGastoDialogWV').hide();
+              /*$('#RegistrarUbicacionBtn').fadeOut();*/
+          }
+    }
+    function handleDeleteGastoRequest(xhr, status, args){
+    	 if(args.validationFailed || !args.deletePagoIn) {
+             PF('deleteGastoDialogWV').jq.effect("shake", {times:5}, 100);
+         }
+         else {
+             PF('deleteGastoDialogWV').hide();
+             /*$('#RegistrarUbicacionBtn').fadeOut();*/
+         }
+    }
+    function handleUpdateGastoRequest(xhr, status, args){
+    	if(args.validationFailed || !args.updatePagoIn) {
+            PF('updateGastoDialogWV').jq.effect("shake", {times:5}, 100);
+        }
+        else {
+            PF('updateGastoDialogWV').hide();
+            /*$('#RegistrarUbicacionBtn').fadeOut();*/
+        }
+    }
+</script>
+    
+
+  <h:form id="SearchForm">
+  <f:passThroughAttribute name="autocomplete" value="off"/>
+  <p:panel id="SearchPanel" >
+  <div class="ui-g">
+   <div class="ui-g-12">
+     <div class="ui-g-4">
+        <p:outputLabel  for="nombre_paciente" value="Nombre:" />
+        <p:inputText id="nombre_paciente"  style="width: 90%; margin-top: 5px;" value="#{pagoDeEstudiosForm.searchNomPaci}" maxlength="50" />
+        <p:message for="nombre_paciente"/>
+     </div>
+     <div class="ui-g-4">
+         <p:outputLabel  for="apellido_paterno_paciente" value="Apellido Paterno:" />
+         <p:inputText id="apellido_paterno_paciente"  style="width: 90%; margin-top: 5px;" value="#{pagoDeEstudiosForm.searchApellPatPaci}" maxlength="50" />
+         <p:message for="apellido_paterno_paciente"/>
+     </div>
+      <div class="ui-g-4">
+         <p:outputLabel  for="apellido_materno_paciente" value="Apellido Materno:" />
+         <p:inputText id="apellido_materno_paciente"  style="width: 90%; margin-top: 5px;" value="#{pagoDeEstudiosForm.searchApellMatPaci}" maxlength="50" />
+         <p:message for="apellido_materno_paciente"/>
+     </div>
+   </div>
+  
+  <div class="ui-g-9 ui-g-nopad">
+     <div class="ui-g-6">
+      <p:outputLabel for="fechaDesde" value="Fecha" />
+        <p:calendar id="fechaDesde"  pattern="dd/MM/yyyy" mask="true" required="true" locale="es" navigator="true" value="#{pagoDeEstudiosForm.searchFechaDesde}"/>
+        <p:message for="fechaDesde"/>
+     </div>
+     <div class="ui-g-6">
+        <p:outputLabel for="fechaHasta" value="Fecha Hasta" rendered="false"/>
+         <p:calendar id="fechaHasta" pattern="dd/MM/yyyy" mask="true" required="true" locale="es" navigator="true" value="#{pagoDeEstudiosForm.searchFechaHasta}" rendered="false"/>
+         <p:message for="fechaHasta"/>
+     </div>
+  </div>
+  </div><!-- END ui-g  -->
+   <div class="ui-g">
+      <div class="ui-g-12 ui-md-12 ui-lg-12" style="text-align: left;">
+       <p:commandButton value="Consultar" update="SearchPanel PagoDeEstudiosFormReadOnly readOnlyGastoForm" actionListener="#{pagoDeEstudiosForm.filtraPorFechas()}" oncomplete="$('.ui-message-error').delay(1800).fadeOut(500);"/>
+      </div>
+   </div><!-- END ui-g  -->
+   </p:panel>
+  </h:form>
+  
+  <h:form id="PagoDeEstudiosFormReadOnly">
+    <div class="ui-g">
+    <div class="ui-g-12 ui-lg-12">
+    <div class="card no-margin">
+           <div class="ui-g">
+           <div class="ui-g-12 ui-lg-12">
+              <p:dataTable var="pagoDeEstudio" value="#{pagoDeEstudiosForm.listPagosOrdenesEstudiosV1}" emptyMessage="Sin resultados" tableStyle="width:auto"  paginator="true" rows="10" paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" >
+				  <f:facet name="header">
+			       Pago de Estudios
+			      </f:facet>
+			       <p:column headerText="Nombre Paciente" style="text-overflow: ellipsis; white-space: nowrap;">
+			        <h:outputText value="#{pagoDeEstudio.nombreCompletoPaciente}" />
+			       </p:column> 
+			       <p:column headerText="Estudio Realizado">
+			         <h:outputText value="#{pagoDeEstudio.nombreEstudio}" />
+			       </p:column>
+			       <p:column headerText="Costo Estudio">
+			         <h:outputText value="#{pagoDeEstudio.costoEstudio}" />
+			       </p:column>
+			        <p:column headerText="Fecha" style="text-overflow: ellipsis; white-space: nowrap;">
+			         <h:outputText value="#{pagoDeEstudio.castFechaCreacion}" >
+			          <f:convertDateTime type="date" pattern= "yyyy-MM-dd" />
+			         </h:outputText>
+			       </p:column>
+			       <p:column headerText="Tipo de Pago">
+			         <h:outputText value="#{pagoDeEstudio.decodeTipoPago}" /> 
+			       </p:column>
+			       <p:column headerText="Descuento">
+			         <h:outputText value="#{pagoDeEstudio.descuento}" />
+			       </p:column>
+			        <p:column headerText="Costo Total">
+			           <h:outputText value="#{pagoDeEstudio.total}" />
+			       </p:column>
+			        <p:column headerText="Requiere Factura">
+			           <h:outputText value="#{pagoDeEstudio.decodeRequiereFactura}" />
+			       </p:column>
+			        <p:column headerText="Info Factura">
+			         <h:outputText value="#{pagoDeEstudio.infoFactura}" />
+			        </p:column>
+			       <p:column headerText="Opciones:" style="text-overflow: ellipsis; white-space: nowrap;">
+			        <p:commandButton value="Descuento" oncomplete="PF('descuentoDialogWV').show()" style="margin-left: 15px;" actionListener="#{pagoDeEstudiosForm.selectForDescuento(pagoDeEstudio)}"/>
+			        <p:commandButton value="Cobrar" update="pagoForm" oncomplete="PF('pagoDialogWV').show()" style="margin-left: 15px;" actionListener="#{pagoDeEstudiosForm.selectForPago(pagoDeEstudio)}"/>
+			        <p:commandButton value="Factura" oncomplete="PF('facturaInfoDialogWV').show()" style="margin-left: 15px;" actionListener="#{pagoDeEstudiosForm.selectForInfoFactura(pagoDeEstudio)}"/>
+			       </p:column>
+			  </p:dataTable> 
+           </div>
+           </div>
+     </div>
+     </div>
+   </div>   
+   
+   <p:panel id="TotalsPanel" >
+     <div class="ui-g">
+      <div class="ui-g-2">
+        <p:outputLabel  for="pacientes_atendidos" value="Pacientes Atendidos:" />
+      </div>
+      <div class="ui-g-4">
+         <p:inputText id="pacientes_atendidos" value="#{pagoDeEstudiosForm.pacientesAtendidos}" readonly="true"/>
+      </div>
+      <div class="ui-g-2">
+        <p:outputLabel  for="pacientes_atendidos" value="Ganancias Total del Día:" />
+      </div>
+      <div class="ui-g-4">
+         <p:inputText id="gananciaTotalDia" value="#{pagoDeEstudiosForm.gananciaTotalDia}" readonly="true"/>
+      </div>
+      <div class="ui-g-2">
+         <p:outputLabel  for="total_por_cobrar" value="Total por Cobrar:" />
+      </div>
+      <div class="ui-g-4">
+          <p:inputText id="total_por_cobrar" value="#{pagoDeEstudiosForm.totalPorCobrar}" readonly="true"/>
+      </div>
+      <div class="ui-g-2">
+        <p:outputLabel for="gastosTotalDia" value="Gastos Total por Día:"/>
+      </div>
+      <div class="ui-g-4">
+          <p:inputText id="gastosTotalDia" value="#{pagoDeEstudiosForm.gastosTotalDia}" readonly="true"/>
+      </div>
+     </div>
+    </p:panel>
+  </h:form>   
+
+
+  <h:form id="descuentoForm">
+   <f:passThroughAttribute name="autocomplete" value="off"/>
+    <p:dialog id="descuentoDialogId" widgetVar="descuentoDialogWV" modal="true" closable="true" closeOnEscape="true" draggable="false" resizable="false" width="1000" header="Descuentos">
+     <p:messages />
+     <p:panelGrid id="panel" columns="3" layout="grid" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-6,ui-g-12 ui-md-4">
+     <h:outputLabel for="monto" value="Monto:" />
+     <p:inputText id="monto" required="true" value="#{pagoDeEstudiosForm.monto}" />
+     <p:message for="monto"/>
+     <h:outputLabel for="observDesc" value="Observación:" />
+     <p:inputText id="observDesc" style="width:99%;" value="#{pagoDeEstudiosForm.observDesc}"/>
+     <f:facet name="footer">
+         <div class="ui-g">
+          <div class="ui-g-4">
+           <p:commandButton value="Aplicar" update="panel PagoDeEstudiosFormReadOnly" actionListener="#{pagoDeEstudiosForm.aplicarDescuento()}" oncomplete="handleDescuentoRequest(xhr, status, args)" />
+          </div>
+          <div class="ui-g-4">
+           <p:commandButton value="Cancelar" onclick="PF('descuentoDialogWV').hide()"/>
+          </div>
+         </div>
+     </f:facet>
+   </p:panelGrid>
+   </p:dialog>
+  </h:form>           
+   
+    <h:form id="pagoForm">
+    <f:passThroughAttribute name="autocomplete" value="off"/>
+    <p:dialog id="pagoDialogId" widgetVar="pagoDialogWV" modal="true" closable="true" closeOnEscape="true" draggable="false" resizable="false" width="1000" header="Pagar">
+     <p:messages />
+         <p:panelGrid id="panel" columns="2" layout="grid" columnClasses="ui-g-12 ui-md-4,ui-g-12 ui-md-8">
+	     <h:outputLabel for="total" value="Total:" />
+	     <p:inputText id="total" value="#{pagoDeEstudiosForm.total}" readonly="true" />
+	     <h:outputLabel for="observPago" value="Observación:" />
+	     <p:inputText id="observPago" style="width:99%;" value="#{pagoDeEstudiosForm.observPago}"/>
+	     <f:facet name="footer">
+	         <div class="ui-g">
+              <div class="ui-g-4">
+	          <p:commandButton value="Pagar" update="panel PagoDeEstudiosFormReadOnly" actionListener="#{pagoDeEstudiosForm.aplicarPago()}" oncomplete="handlePagoRequest(xhr, status, args)" />
+	          </div>
+	          <div class="ui-g-4">
+	          <p:commandButton value="Cancelar" onclick="PF('pagoDialogWV').hide()"/>
+	          </div>
+	         </div>
+	     </f:facet>
+	   </p:panelGrid>
+    </p:dialog>
+    </h:form>
+    
+     <h:form id="facturaInfoForm">
+     <f:passThroughAttribute name="autocomplete" value="off"/>
+     <p:dialog id="facturaInfoDialogId" widgetVar="facturaInfoDialogWV" modal="true" closable="true" closeOnEscape="true" draggable="false" resizable="false" width="1000" header="Información de Factura">
+       <p:messages />
+       <p:panelGrid id="panel" columns="2" layout="grid" columnClasses="ui-g-12 ui-md-4,ui-g-12 ui-md-8">
+	     <h:outputLabel for="infoFactura" value="Información de Factura:" />
+	     <p:inputText id="infoFactura" value="#{pagoDeEstudiosForm.infoFactura}"  style="width:99%"/>
+	      <f:facet name="footer">
+	         <div class="ui-g">
+              <div class="ui-g-4">
+	          <p:commandButton value="Aplicar" update="panel PagoDeEstudiosFormReadOnly" actionListener="#{pagoDeEstudiosForm.aplicarInfoFactura()}" oncomplete="handleInfoFacturaRequest(xhr, status, args)" />
+	          </div>
+	          <div class="ui-g-4">
+	          <p:commandButton value="Cancelar" onclick="PF('facturaInfoDialogWV').hide()"/>
+	          </div>
+	         </div>
+	     </f:facet>
+	   </p:panelGrid>  
+     </p:dialog>
+     </h:form>
+
+     
+     <h:form id="readOnlyGastoForm">
+     <p:dataTable var="asGasto" value="#{pagoDeEstudiosForm.listAsGastos}" emptyMessage="Sin resultados" tableStyle="width:auto"  paginator="true" rows="10" paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" >
+       <f:facet name="header">
+        GASTOS
+       </f:facet>
+        <p:column headerText="Razon">
+          <h:outputText value="#{asGasto.razon}" />
+        </p:column>
+        <p:column headerText="Cantidad">
+           <h:outputText value="#{asGasto.monto}" />
+        </p:column>
+        <p:column headerText="Autorizo">
+            <h:outputText value="#{asGasto.autorizo}" />
+        </p:column>
+        <p:column headerText="Opciones:">
+          <p:commandButton icon="fa fa-edit" update="updateGastoForm" oncomplete="PF('updateGastoDialogWV').show();" ajax="true"  style="margin-left: 15px;" actionListener="#{pagoDeEstudiosForm.selectGastoForAction(asGasto)}" />
+          <p:commandButton icon="fa fa-trash"  oncomplete="PF('deleteGastoDialogWV').show();" ajax="true"  style="margin-left: 15px;" actionListener="#{pagoDeEstudiosForm.selectGastoForAction(asGasto)}" />                      
+	    </p:column>
+        <f:facet name="footer">
+           <div class="ui-g">
+             <div class="ui-g-12 ui-lg-12" style="text-align: right;">
+                 <p:commandButton id="RegistrarGastoBtn" value="Registrar Gasto" icon="fa fa-plus" onclick="PF('createGastoDialogWV').show();" />
+              </div>
+            </div>
+        </f:facet>
+     </p:dataTable>
+     </h:form>
+     
+     <h:form id="createGastoForm">
+       <f:passThroughAttribute name="autocomplete" value="off"/>
+       <p:dialog id="createGastoDialogId" widgetVar="createGastoDialogWV" modal="true" closable="true" closeOnEscape="true" draggable="false" resizable="false" width="1000" header="Registrar Gasto">
+        <p:panelGrid id="createGastoPanelId" columns="3" layout="grid" columnClasses="ui-g-12 ui-md-6 ui-lg-2,ui-g-12 ui-md-6 ui-lg-8,ui-g-12 ui-md-6 ui-lg-2">
+          <p:outputLabel for="razon" value="Razon"/>
+		  <p:inputText id="razon" value="#{pagoDeEstudiosForm.razon}" style="width:100%" required="true" requiredMessage="Este valor es requerido"/>
+		  <p:message for="razon"/>
+		  <p:outputLabel for="cantidad" value="Cantidad"/>
+		  <p:inputText id="cantidad" value="#{pagoDeEstudiosForm.cantidad}" required="true" requiredMessage="Este valor es requerido" />
+		  <p:message for="cantidad"/>
+		  <p:outputLabel for="autorizo" value="Autorizo"/>
+		  <p:inputText id="autorizo" value="#{pagoDeEstudiosForm.autorizo}" style="width:100%" required="true" requiredMessage="Este valor es requerido" />
+		  <p:message for="autorizo" />
+		  <f:facet name="footer">
+		   <div class="ui-g">
+           <div class="ui-g-12 ui-sm-12 ui-md-6 ui-lg-6" style="text-align:center">
+              <p:commandButton value="Aceptar" update="createGastoPanelId readOnlyGastoForm" oncomplete="handleCreateGastoRequest(xhr, status, args)" actionListener="#{pagoDeEstudiosForm.createPago()}"/> 
+           </div>
+           <div class="ui-g-12 ui-sm-12 ui-md-6 ui-lg-6" style="text-align:center">
+              <p:commandButton value="Cancelar" onclick="PF('createGastoDialogWV').hide();"/> 
+           </div>
+           </div>
+		  </f:facet>
+        </p:panelGrid>
+       </p:dialog>
+     </h:form>
+   
+   <h:form id="DeleteGastoForm">
+  <p:dialog id="deleteGastoDialogId" widgetVar="deleteGastoDialogWV" modal="true" closable="true" closeOnEscape="true" draggable="false" resizable="false" width="1000" header="Borrar Registro">
+   <h2>¿Esta seguro de que desea borrar este registro?</h2>
+    <div class="ui-g" >
+              <div class="ui-g-12 ui-lg-2" >
+                 <p:commandButton id="DeleteBtn" update="readOnlyGastoForm" value="Aceptar" actionListener="#{pagoDeEstudiosForm.deleteGasto()}" oncomplete="handleDeleteGastoRequest(xhr, status, args)"  />
+              </div>
+              <div class="ui-g-12 ui-lg-2" >
+                 <p:commandButton id="CancelarBtn"  value="Cancelar"  onclick="PF('deleteGastoDialogWV').hide();" />
+              </div>
+     </div>
+  </p:dialog>
+</h:form>
+   
+    <h:form id="updateGastoForm">
+       <f:passThroughAttribute name="autocomplete" value="off"/>
+       <p:dialog id="updateGastoDialogId" widgetVar="updateGastoDialogWV" modal="true" closable="true" closeOnEscape="true" draggable="false" resizable="false" width="1000" header="Actualizar Gasto">
+        <p:panelGrid id="updateGastoPanelId" columns="3" layout="grid" columnClasses="ui-g-12 ui-md-6 ui-lg-2,ui-g-12 ui-md-6 ui-lg-8,ui-g-12 ui-md-6 ui-lg-2">
+          <p:outputLabel for="razon" value="Razon"/>
+		  <p:inputText id="razon" value="#{pagoDeEstudiosForm.asGastosForAction.razon}" style="width:100%" required="true" requiredMessage="Este valor es requerido"/>
+		  <p:message for="razon"/>
+		  <p:outputLabel for="cantidad" value="Cantidad"/>
+		  <p:inputText id="cantidad" value="#{pagoDeEstudiosForm.asGastosForAction.monto}" required="true" requiredMessage="Este valor es requerido" />
+		  <p:message for="cantidad"/>
+		  <p:outputLabel for="autorizo" value="Autorizo"/>
+		  <p:inputText id="autorizo" value="#{pagoDeEstudiosForm.asGastosForAction.autorizo}" style="width:100%" required="true" requiredMessage="Este valor es requerido" />
+		  <p:message for="autorizo" />
+		  <f:facet name="footer">
+		   <div class="ui-g">
+           <div class="ui-g-12 ui-sm-12 ui-md-6 ui-lg-6" style="text-align:center">
+              <p:commandButton value="Aceptar" update="updateGastoPanelId readOnlyGastoForm" oncomplete="handleUpdateGastoRequest(xhr, status, args)" actionListener="#{pagoDeEstudiosForm.updatePago()}"/> 
+           </div>
+           <div class="ui-g-12 ui-sm-12 ui-md-6 ui-lg-6" style="text-align:center">
+              <p:commandButton value="Cancelar" onclick="PF('updateGastoDialogWV').hide();"/> 
+           </div>
+           </div>
+		  </f:facet>
+        </p:panelGrid>
+       </p:dialog>
+     </h:form>
+   
+</ui:define>
+</ui:composition>

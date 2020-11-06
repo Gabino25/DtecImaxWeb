@@ -1,0 +1,188 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template/template.xhtml">
+<ui:define name="content">
+
+ <script type="text/javascript">
+    function handleGuardarRequest(xhr, status, args) {
+        if(args.validationFailed || !args.loggedIn) {
+            PF('DoctoresDialogCreate').jq.effect("shake", {times:5}, 100);
+        }
+        else {
+            PF('DoctoresDialogCreate').hide();
+            /*$('#RegistrarUbicacionBtn').fadeOut();*/
+        }
+    }
+    function handleActualizarRequest(xhr, status, args) {
+        if(args.validationFailed || !args.updateIn) {
+            PF('DoctoresDialogUpdate').jq.effect("shake", {times:5}, 100);
+        }
+        else {
+            PF('DoctoresDialogUpdate').hide();
+            /*$('#RegistrarUbicacionBtn').fadeOut();*/
+        }
+    }
+  </script>
+
+<h1>Doctores Referentes Vs Doctores</h1>
+<h:form id="DoctoresFormReadOnly">
+    <div class="ui-g">
+    <div class="ui-g-12 ui-lg-12">
+    <div class="card no-margin">
+                   
+                            <div class="ui-g">
+                            <div class="ui-g-12 ui-lg-12">
+                             <p:dataTable var="doctor" value="#{docRefVsDocForm.listDocRefVsDoc}" emptyMessage="Sin resultados" paginator="true" rows="10" paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+						     <f:facet name="header">
+						      Doctores Referentes Vs Doctores
+						     </f:facet>
+						     <p:column headerText="Ubicación">
+						       <h:outputText value="#{doctor.nombreUbicacion}" />
+						     </p:column>
+						     <p:column headerText="Nombre Doctor Referente">
+						       <h:outputText value="#{doctor.nombreCompletoDoctorRef}" />
+						     </p:column>
+						     <p:column headerText="Nombre Doctor">
+						       <h:outputText value="#{doctor.nombreCompletoDoctor}" />
+						     </p:column>
+						     <p:column headerText="Opciones:">
+						       <p:commandButton icon="fa fa-edit" update="DoctoresFormUpdate DoctoresFormReadOnly" oncomplete="PF('DoctoresDialogUpdate').show();" ajax="true"  style="margin-left: 15px;" actionListener="#{docRefVsDocForm.selectForAction(doctor)}"/>
+						       <p:commandButton icon="fa fa-trash" update=":DoctoresFormDelete:eliminar-doctor-dialog" oncomplete="PF('eliminarDoctorDlg').show();" ajax="true"  style="margin-left: 15px;" actionListener="#{docRefVsDocForm.selectForAction(doctor)}"/>                      
+						     </p:column>
+						     </p:dataTable>
+                            </div>
+                            </div>
+                            <h:panelGroup id="doctores-registrar">
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-lg-12" style="text-align: right;">
+                                    <p:commandButton id="RegistrarDoctorBtn" value="Registrar Doctor Referente Vs Doctor" icon="fa fa-plus" onclick="PF('DoctoresDialogCreate').show();" />
+                                </div>
+                            </div>
+                            </h:panelGroup>
+   </div>
+   </div>
+   </div>
+</h:form>
+
+ <h:form id="DoctoresFormCreate">
+ <f:passThroughAttribute name="autocomplete" value="off"/>
+ <p:dialog id="doctores-dialog-create" widgetVar="DoctoresDialogCreate" modal="true" closable="true" closeOnEscape="true" draggable="false" resizable="false" width="1000" header="Registrar Doctor Referente Vs Doctor">
+ <p:panel id="panelCreate">
+  <div class="ui-g ui-fluid">
+<div class="ui-g-12 ui-lg-3" style="margin-bottom: 5px;">
+  <p:outputLabel value="Nombre Ubicacion" for="numero_ubicacion" /> 
+   <p:selectOneMenu id="numero_ubicacion" filter="true" filterMatchMode="contains" required="true" value="#{docRefVsDocForm.numeroUbicacion}" >
+  <f:selectItem itemLabel="seleccione" itemValue="" /> 
+  <f:selectItems value="#{adminHelper.selectUbicacionesItems}"  />
+ </p:selectOneMenu>
+ </div>
+ </div>
+ <div class="ui-g ui-fluid">
+ <div class="ui-g-6 ui-lg-4" style="margin-bottom: 5px;">
+  <p:outputLabel value="Doctor Que Refiere" for="numero_doctor_referente" /> 
+  <p:selectOneMenu id="numero_doctor_referente" filter="true"  filterMatchMode="contains" required="true" value="#{docRefVsDocForm.numeroDoctorReferente}" >
+  <f:selectItem itemLabel="seleccione" itemValue="" /> 
+  <f:selectItems value="#{adminHelper.selectDoctoresReferentesItems}"  />
+  </p:selectOneMenu>
+  <p:message for="numero_doctor_referente"/>
+ </div>
+ </div>
+  <div class="ui-g ui-fluid">
+ <div class="ui-g-6 ui-lg-3" style="margin-bottom: 5px;">
+  <p:outputLabel value="Doctor" for="numero_doctor" /> 
+  <p:selectOneMenu id="numero_doctor" filter="true"  filterMatchMode="contains" required="true" value="#{docRefVsDocForm.numeroDoctor}" >
+  <f:selectItem itemLabel="seleccione" itemValue="" /> 
+  <f:selectItems value="#{adminHelper.selectDoctoresItems}"  />
+  </p:selectOneMenu>
+  <p:message for="numero_doctor"/>
+ </div>
+ </div>
+ 	<div class="ui-g">
+			      <div class="ui-g-12 ui-lg-12" style="text-align: right;">
+			        <p:commandButton value="Cancelar" ajax="true" immediate="true" onclick="PF('DoctoresDialogCreate').hide();"  style="margin-right: 10px;"/>
+			        <p:commandButton value="Guardar" actionListener="#{docRefVsDocForm.insert()}"  update="panelCreate DoctoresFormReadOnly" oncomplete="handleGuardarRequest(xhr, status, args)" />
+			   </div>
+			</div>
+ </p:panel>
+ </p:dialog>
+ </h:form>
+ 
+  <h:form id="DoctoresFormUpdate">
+ <f:passThroughAttribute name="autocomplete" value="off"/>
+ <p:dialog id="doctores-dialog-update" widgetVar="DoctoresDialogUpdate" modal="true" closable="true" closeOnEscape="true" draggable="false" resizable="false" width="1000" header="Actualizar Doctor">
+ <p:panel id="panelUpdate">
+   <div class="ui-g ui-fluid">
+<div class="ui-g-12 ui-lg-3" style="margin-bottom: 5px;">
+  <p:outputLabel value="Nombre Ubicacion" for="numero_ubicacion" /> 
+   <p:selectOneMenu id="numero_ubicacion" filter="true" filterMatchMode="contains" required="true" value="#{docRefVsDocForm.docRefVsDocForAction.numeroUbicacion}" >
+  <f:selectItem itemLabel="seleccione" itemValue="" /> 
+  <f:selectItems value="#{adminHelper.selectUbicacionesItems}"  />
+ </p:selectOneMenu>
+ </div>
+ </div>
+ <div class="ui-g ui-fluid">
+ <div class="ui-g-6 ui-lg-4" style="margin-bottom: 5px;">
+  <p:outputLabel value="Doctor Que Refiere" for="numero_doctor_referente" /> 
+  <p:selectOneMenu id="numero_doctor_referente" filter="true"  filterMatchMode="contains" required="true" value="#{docRefVsDocForm.docRefVsDocForAction.numeroDoctorReferente}" >
+  <f:selectItem itemLabel="seleccione" itemValue="" /> 
+  <f:selectItems value="#{adminHelper.selectDoctoresReferentesItems}"  />
+  </p:selectOneMenu>
+  <p:message for="numero_doctor_referente"/>
+ </div>
+ </div>
+  <div class="ui-g ui-fluid">
+ <div class="ui-g-6 ui-lg-3" style="margin-bottom: 5px;">
+  <p:outputLabel value="Doctor" for="numero_doctor" /> 
+  <p:selectOneMenu id="numero_doctor" filter="true"  filterMatchMode="contains" required="true" value="#{docRefVsDocForm.docRefVsDocForAction.numeroDoctor}" >
+  <f:selectItem itemLabel="seleccione" itemValue="" /> 
+  <f:selectItems value="#{adminHelper.selectDoctoresItems}"  />
+  </p:selectOneMenu>
+  <p:message for="numero_doctor"/>
+ </div>
+ </div>
+ <div class="ui-g">
+			      <div class="ui-g-12 ui-lg-12" style="text-align: right;">
+			        <p:commandButton value="Cancelar" ajax="true" immediate="true" onclick="PF('DoctoresDialogUpdate').hide();"  style="margin-right: 10px;"/>
+			        <p:commandButton value="Actualizar" action="#{docRefVsDocForm.update()}"  update="panelUpdate DoctoresFormReadOnly" oncomplete="handleActualizarRequest(xhr, status, args)" />
+			   </div>
+			</div>
+ </p:panel>
+ </p:dialog>
+ </h:form>
+ 
+ 
+ <h:form id="DoctoresFormDelete">
+    <p:dialog id="eliminar-doctor-dialog" widgetVar="eliminarDoctorDlg" modal="true" closable="true" closeOnEscape="true" draggable="false" resizable="false" header="Eliminar Doctor">
+    
+                   <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-lg-12">
+                        <h:panelGroup >
+                           <p:outputLabel value="¿Esta usted seguro de que desea borrar este registro? Considere que esta acción no se puede deshacer." />
+                        </h:panelGroup>
+                    </div>
+                </div>
+
+                <div class="ui-g">
+                    <div class="ui-g-12 ui-lg-12" style="text-align: right;">
+                        <p:commandButton value="Cancelar"
+                                       ajax="true"
+                                       immediate="true"
+                                       onclick="PF('eliminarDoctorDlg').hide();"/>
+                        <p:commandButton value="Eliminar"
+                                         ajax="false"
+                                         update=":DoctoresFormReadOnly"
+                                         actionListener="#{docRefVsDocForm.delete}"
+                                         onstart="PF('eliminarDoctorDlg').hide();"
+                                         style="margin-left: 10px;"/>
+                    </div>
+                </div>
+     
+    </p:dialog>
+ </h:form>
+                   
+                          
+</ui:define>
+</ui:composition>

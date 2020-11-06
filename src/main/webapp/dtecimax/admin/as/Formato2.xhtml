@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+   <h:head>
+     <title>Formato 2</title>
+     <h:outputScript library="primefaces" name="jquery/jquery.js"/>
+     <h:outputScript library="primefaces" name="jquery/jquery-plugins.js"/>
+     <h:outputScript library="js" name="dtecimax/admin/as/Formato2.js"/>
+     <h:outputStylesheet library="css" name="dtecimax/admin/as/Formato2.css"  />
+  </h:head>
+<h:body>
+     <h:form id="formID">
+     <div id="contenedor">
+     <div id="row1">
+     <div id="row1Col1">
+     <h:graphicImage style="border:none;" width="100px" height="100px" id="centroDeImagenologia" library="images" name="imaxLogo.PNG" />
+     </div>
+     <div id="row1Col2">
+     <br/>
+     <input id="primeraVez" type="checkbox" /><label for="primeraVez">PRIMERA VEZ</label><br/>
+     <input id="subsecuente" type="checkbox" /><label for="subsecuente">SUBSECUENTE</label><br/>
+     <input id="reporte" type="checkbox" /><label for="reporte">REPORTE</label>
+     </div>
+     <div id="row1Col3">
+     <label for="fecha">FECHA:</label><input id="fecha" type="date"/>
+     </div>
+    </div>
+     <div id="row2">PACIENTE: #{formato2Form.nombreCompletoPaciente}</div>
+     <div id="row3">
+     EDAD: <input id="edad" value="#{formato2Form.anios} años" size="20" style="border:none;" />
+     FECHA DE NACIMIENTO:<input id="fechaDeNacimiento" value="#{formato2Form.fechaDeNacimientoddMMyyyy}" style="border:none;" />
+     TELEFONO:<input id="telefono" value="#{formato2Form.telefono}" style="border:none;" />
+     </div>
+     <div id="row4">
+      FORMA DE PAGO:<input id="formaDePago" value="#{formato2Form.tipoDePago}" style="border:none;" />
+     </div>
+      <div id="row5">
+        REQUIERE FACTURA:<input id="requiereFactura" value="#{formato2Form.factura}" style="border:none;" />
+         LLEGA:<input id="llegaFecha" type="date" /> 
+      </div>
+      <div id="row6">
+        <div id="row6Col1">
+        <div>
+          ESTUDIO:<input id="estudio" value="#{formato2Form.estudio}" size="60" style="border:none;" />
+        </div>
+        <div>
+          TRAE CITA PARA:
+        </div>
+        <div>
+          ESTUDIOS ANTERIORES:
+        </div>
+        <div>
+          RESULTADOS:
+        </div>
+         <div>
+          MÉDICO:
+        </div>
+        </div>
+        <div id="row6Col2">
+          <div id="r6c2r1">
+            CITA
+          </div>
+          <div id="r6c2r2">
+           REALIZA
+          </div>
+          <div>
+           <label>UBICACION</label><input id="imax" type="radio" name="ubicacion"/><label for="imax">IMAX</label><input id="cm" type="radio" name="ubicacion"/><label for="cm">CM</label>
+          </div>
+        </div>
+      </div>
+     <div id="row7">
+     <label for="tecnico">TECNICO:</label><input id="tecnico" size="100"/> 
+     </div>
+     <div id="row8">
+      <div>
+      <label for="ehdc">¿EXISTE HISTORIA DE CANCER EN SU FAMILIA?:</label>
+      </div>
+      <div>
+      <textarea id="ehdc" rows="4" cols="125"></textarea> 
+      </div>
+     </div>
+      <div id="row9">
+      <div>
+     <label for="tat">¿TOMA ALGUN TRATAMIENTO?:</label>
+     </div>
+      <div>
+     <textarea id="tat" rows="4" cols="125"></textarea> 
+     </div>
+     </div>
+     <div id="row10">
+      <div>
+     <label for="tmod">¿TIENE MOLESTIAS O DOLOR?:</label>
+     </div>
+     <div>
+     <textarea id="tmod" rows="4" cols="125"></textarea> 
+     </div>
+     </div>
+     <div id="row11">
+     <div>
+     <label for="acp">¿ALGUNA CIRUGIA PREVIA?:</label>
+     </div>
+     <div>
+     <textarea id="acp" rows="4" cols="125"></textarea> 
+     </div>
+     </div>
+     <div id="row12">
+     <div>
+     <label for="dpcsse">DX POR EL CUAL SOLICITAN SU ESTUDIO:</label>
+     </div>
+     <div>
+     <textarea id="dpcsse" rows="4" cols="125"></textarea> 
+     </div>
+     </div>
+     </div>
+       <button id="guardaFormatoBtn"  type="button" onclick="guardarFormatoFn();" >Guardar Formato</button>
+     </h:form>  
+</h:body>   
+</html>  

@@ -1,0 +1,203 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template/template.xhtml">
+<ui:define name="content">
+<h1>Información Ganancias</h1>
+
+  <h:form id="SearchForm">
+  <f:passThroughAttribute name="autocomplete" value="off"/>
+  <p:panel id="SearchPanel" >
+  <div class="ui-g">  
+  <div class="ui-g-9 ui-g-nopad">
+     <div class="ui-g-6">
+      <p:outputLabel for="fechaDesde" value="Fecha" />
+        <p:calendar id="fechaDesde"  pattern="dd/MM/yyyy" mask="true" required="true" locale="es" navigator="true" value="#{informacionGananciasForm.searchFechaDesde}"/>
+        <p:message for="fechaDesde"/>
+     </div>
+     <div class="ui-g-6">
+        <p:outputLabel for="fechaHasta" value="Fecha Hasta" rendered="false"/>
+         <p:calendar id="fechaHasta" pattern="dd/MM/yyyy" mask="true" required="true" locale="es" navigator="true" value="#{informacionGananciasForm.searchFechaHasta}" rendered="false"/>
+         <p:message for="fechaHasta"/>
+     </div>
+  </div>
+  </div><!-- END ui-g  -->
+   <div class="ui-g">
+      <div class="ui-g-12 ui-md-12 ui-lg-12" style="text-align: left;">
+       <p:commandButton value="Consultar" update="ReadOnlyForm" actionListener="#{informacionGananciasForm.filtraPorFechas()}" oncomplete="$('.ui-message-error').delay(1800).fadeOut(500);"/>
+      </div>
+   </div><!-- END ui-g  -->
+   </p:panel>
+  </h:form>
+
+<h:form id="ReadOnlyForm">
+ <p:dataTable id="dataTable1" var="admonPagOrdEstud" value="#{informacionGananciasForm.listPagosConTarjConFact}" emptyMessage="Sin resultados" paginator="true" rows="10" paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" tableStyle="width:auto">
+      <f:facet name="header">
+	   Tabla Ganancias por día pagado con tarjeta y facturado
+      </f:facet>
+       <p:column headerText="Paciente" style="text-overflow: ellipsis; white-space: nowrap;">
+         <h:outputText value="#{admonPagOrdEstud.paciente}" />
+        </p:column>
+        <p:column headerText="Estudio" style="text-overflow: ellipsis; white-space: nowrap;">
+         <h:outputText value="#{admonPagOrdEstud.estudioDesc}" />
+        </p:column>
+         <p:column headerText="Costo Total" style="text-overflow: ellipsis; white-space: nowrap;">
+         <h:outputText value="#{admonPagOrdEstud.costoTotal}" />
+        </p:column>
+         <p:column headerText="Tipo de Pago" style="text-overflow: ellipsis; white-space: nowrap;">
+         <h:outputText value="#{admonPagOrdEstud.tipoDePagoDesc}" />
+        </p:column>
+         <p:column headerText="Observación Pago" style="text-overflow: ellipsis; white-space: nowrap;">
+         <h:outputText value="#{admonPagOrdEstud.observacionPago}" />
+        </p:column>
+        <p:column headerText="Factura" style="text-overflow: ellipsis; white-space: nowrap;">
+         <h:outputText value="#{admonPagOrdEstud.requireFacturaDesc}" />
+        </p:column>
+         <p:column headerText="Info Factura" style="text-overflow: ellipsis; white-space: nowrap;">
+         <h:outputText value="#{admonPagOrdEstud.infoFactura}" />
+          </p:column>
+          <p:column headerText="Día" style="text-overflow: ellipsis; white-space: nowrap;">
+          <h:outputText value="#{admonPagOrdEstud.fechaCreacion}" >
+          <f:convertDateTime type="date" pattern= "yyyy-MM-dd" />
+          </h:outputText>
+          </p:column>
+  </p:dataTable>
+  
+     <p:panel id="TotalsPanel1">
+     <div class="ui-g">
+      <div class="ui-g-4">
+        <p:outputLabel  for="gananciaTotal1" value="Total Ganancias por día pagado con tarjeta y facturado" />
+      </div>
+      <div class="ui-g-4">
+         <p:inputText id="gananciaTotal1" value="#{informacionGananciasForm.totalPagosConTarjConFact}" readonly="true"/>
+      </div>
+     </div>
+     </p:panel>
+  
+  
+  <p:dataTable id="dataTable2" var="admonPagOrdEstud" value="#{informacionGananciasForm.listPagosConTarjSinFact}" emptyMessage="Sin resultados" paginator="true" rows="10" paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" tableStyle="width:auto">
+      <f:facet name="header">
+	   Tabla Ganancias por día pagado con tarjeta SIN FACTURA
+      </f:facet>
+      <p:column headerText="Paciente" style="text-overflow: ellipsis; white-space: nowrap;">
+         <h:outputText value="#{admonPagOrdEstud.paciente}" />
+        </p:column>
+         <p:column headerText="Estudio" style="text-overflow: ellipsis; white-space: nowrap;">
+         <h:outputText value="#{admonPagOrdEstud.estudioDesc}" />
+        </p:column>
+        <p:column headerText="Costo Total" style="text-overflow: ellipsis; white-space: nowrap;">
+         <h:outputText value="#{admonPagOrdEstud.costoTotal}" />
+        </p:column>
+           <p:column headerText="Tipo de Pago" style="text-overflow: ellipsis; white-space: nowrap;">
+         <h:outputText value="#{admonPagOrdEstud.tipoDePagoDesc}" />
+        </p:column>
+        <p:column headerText="Observación Pago" style="text-overflow: ellipsis; white-space: nowrap;">
+         <h:outputText value="#{admonPagOrdEstud.observacionPago}" />
+        </p:column>
+        <p:column headerText="Factura" style="text-overflow: ellipsis; white-space: nowrap;">
+         <h:outputText value="#{admonPagOrdEstud.requireFacturaDesc}" />
+        </p:column>
+        <p:column headerText="Día" style="text-overflow: ellipsis; white-space: nowrap;">
+         <h:outputText value="#{admonPagOrdEstud.fechaCreacion}" >
+          <f:convertDateTime type="date" pattern= "yyyy-MM-dd" />
+          </h:outputText>
+        </p:column>
+  </p:dataTable>		
+  
+    <p:panel id="TotalsPanel2">
+     <div class="ui-g">
+      <div class="ui-g-4">
+        <p:outputLabel  for="gananciaTotal2" value="Total Ganancias por día pagado con tarjeta SIN FACTURA" />
+      </div>
+      <div class="ui-g-4">
+         <p:inputText id="gananciaTotal2" value="#{informacionGananciasForm.totalPagosConTarjSinFact}" readonly="true"/>
+      </div>
+     </div>
+     </p:panel>
+  
+  <p:dataTable id="dataTable3" var="admonPagOrdEstud" value="#{informacionGananciasForm.listPagosConEfectivo}" emptyMessage="Sin resultados" paginator="true" rows="10" paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" tableStyle="width:auto">
+      <f:facet name="header">
+	   Tabla Ganancias por día pagado con efectivo
+      </f:facet>
+      <p:column headerText="Paciente" style="text-overflow: ellipsis; white-space: nowrap;">
+         <h:outputText value="#{admonPagOrdEstud.paciente}" />
+        </p:column>
+        <p:column headerText="Estudio" style="text-overflow: ellipsis; white-space: nowrap;">
+         <h:outputText value="#{admonPagOrdEstud.estudioDesc}" />
+        </p:column>
+        <p:column headerText="Costo Total" style="text-overflow: ellipsis; white-space: nowrap;">
+         <h:outputText value="#{admonPagOrdEstud.costoTotal}" />
+        </p:column>
+           <p:column headerText="Tipo de Pago" style="text-overflow: ellipsis; white-space: nowrap;">
+         <h:outputText value="#{admonPagOrdEstud.tipoDePagoDesc}" />
+        </p:column>
+        <p:column headerText="Observación Pago" style="text-overflow: ellipsis; white-space: nowrap;">
+         <h:outputText value="#{admonPagOrdEstud.observacionPago}" />
+        </p:column>
+          <p:column headerText="Día" style="text-overflow: ellipsis; white-space: nowrap;">
+          <h:outputText value="#{admonPagOrdEstud.fechaCreacion}" >
+          <f:convertDateTime type="date" pattern= "yyyy-MM-dd" />
+          </h:outputText>
+          </p:column>
+  </p:dataTable>		
+  
+  <p:panel id="TotalsPanel3">
+     <div class="ui-g">
+      <div class="ui-g-4">
+        <p:outputLabel  for="gananciaTotal3" value="Total Ganancias por día pagado con tarjeta SIN FACTURA" />
+      </div>
+      <div class="ui-g-4">
+         <p:inputText id="gananciaTotal3" value="#{informacionGananciasForm.totalPagosConEfectivo}" readonly="true"/>
+      </div>
+     </div>
+     </p:panel>
+  
+  		
+  <p:dataTable id="dataTable4" var="admonPagOrdEstud" value="#{informacionGananciasForm.listPagosConCLIP}" emptyMessage="Sin resultados" paginator="true" rows="10" paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" tableStyle="width:auto">
+      <f:facet name="header">
+	   Tabla Ganancias por día pagado con CLIP
+      </f:facet>
+      <p:column headerText="Paciente" style="text-overflow: ellipsis; white-space: nowrap;">
+         <h:outputText value="#{admonPagOrdEstud.paciente}" />
+        </p:column>
+        <p:column headerText="Estudio" style="text-overflow: ellipsis; white-space: nowrap;">
+         <h:outputText value="#{admonPagOrdEstud.estudioDesc}" />
+        </p:column>
+        <p:column headerText="Costo Total" style="text-overflow: ellipsis; white-space: nowrap;">
+         <h:outputText value="#{admonPagOrdEstud.costoTotal}" />
+        </p:column>
+           <p:column headerText="Tipo de Pago" style="text-overflow: ellipsis; white-space: nowrap;">
+         <h:outputText value="#{admonPagOrdEstud.tipoDePagoDesc}" />
+        </p:column>
+        <p:column headerText="Observación Pago" style="text-overflow: ellipsis; white-space: nowrap;">
+         <h:outputText value="#{admonPagOrdEstud.observacionPago}" />
+        </p:column>
+        <p:column headerText="Factura" style="text-overflow: ellipsis; white-space: nowrap;">
+         <h:outputText value="#{admonPagOrdEstud.requireFacturaDesc}" />
+        </p:column>
+         <p:column headerText="Info Factura" style="text-overflow: ellipsis; white-space: nowrap;">
+         <h:outputText value="#{admonPagOrdEstud.infoFactura}" />
+          </p:column>
+           <p:column headerText="Día" style="text-overflow: ellipsis; white-space: nowrap;">
+          <h:outputText value="#{admonPagOrdEstud.fechaCreacion}" >
+          <f:convertDateTime type="date" pattern= "yyyy-MM-dd" />
+          </h:outputText>
+          </p:column>
+  </p:dataTable>	
+  
+    <p:panel id="TotalsPanel4">
+     <div class="ui-g">
+      <div class="ui-g-4">
+        <p:outputLabel  for="gananciaTotal4" value="Total Ganancias por día pagado con tarjeta SIN FACTURA" />
+      </div>
+      <div class="ui-g-4">
+         <p:inputText id="gananciaTotal4" value="#{informacionGananciasForm.totalPagosConCLIP}" readonly="true"/>
+      </div>
+     </div>
+     </p:panel>
+  							    
+</h:form>
+</ui:define>
+</ui:composition>
